@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component name="dataSourceStorage">
+  <data-source name="MySQL - moviedb@localhost" uuid="f2073a5c-d6dd-4580-b332-8a49560a894f">
+    <database-info product="MySQL" version="5.7.9-log" jdbc-version="4.0" driver-name="MySQL Connector Java" driver-version="mysql-connector-java-5.1.35 ( Revision: 5fb9c5849535c13917c2cf9baaece6ef9693ef27 )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="lower" quoted-identifiers="lower"/>
+    <schema name="" catalog="moviedb"/>
+    <table name="creditcards" schema="" catalog="moviedb" type="TABLE">
+      <column name="id" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="expiration" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="customers_ibfk_1" table="customers" schema="" catalog="moviedb" columns="cc_id"/>
+    </table>
+    <table name="customers" schema="" catalog="moviedb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cc_id" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="address" sqlType="VARCHAR" precision="200" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="password" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="customers_ibfk_1" columns="cc_id" ref-table="creditcards" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <exported-key name="sales_ibfk_1" table="sales" schema="" catalog="moviedb" columns="customer_id"/>
+    </table>
+    <table name="genres" schema="" catalog="moviedb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="name" sqlType="VARCHAR" precision="32" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="genres_in_movies_ibfk_1" table="genres_in_movies" schema="" catalog="moviedb" columns="genre_id"/>
+    </table>
+    <table name="genres_in_movies" schema="" catalog="moviedb" type="TABLE">
+      <column name="genre_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="movie_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="genres_in_movies_ibfk_1" columns="genre_id" ref-table="genres" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="genres_in_movies_ibfk_2" columns="movie_id" ref-table="movies" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="movies" schema="" catalog="moviedb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="title" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="year" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="director" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="banner_url" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <column name="trailer_url" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="genres_in_movies_ibfk_2" table="genres_in_movies" schema="" catalog="moviedb" columns="movie_id"/>
+      <exported-key name="sales_ibfk_2" table="sales" schema="" catalog="moviedb" columns="movie_id"/>
+      <exported-key name="stars_in_movies_ibfk_2" table="stars_in_movies" schema="" catalog="moviedb" columns="movie_id"/>
+    </table>
+    <table name="sales" schema="" catalog="moviedb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="customer_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="movie_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="sale_date" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <foreign-key name="sales_ibfk_1" columns="customer_id" ref-table="customers" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="sales_ibfk_2" columns="movie_id" ref-table="movies" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+    <table name="stars" schema="" catalog="moviedb" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="first_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="last_name" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="dob" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="photo_url" sqlType="VARCHAR" precision="200" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <exported-key name="stars_in_movies_ibfk_1" table="stars_in_movies" schema="" catalog="moviedb" columns="star_id"/>
+    </table>
+    <table name="stars_in_movies" schema="" catalog="moviedb" type="TABLE">
+      <column name="star_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="movie_id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <foreign-key name="stars_in_movies_ibfk_1" columns="star_id" ref-table="stars" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+      <foreign-key name="stars_in_movies_ibfk_2" columns="movie_id" ref-table="movies" ref-schema="" ref-catalog="moviedb" ref-columns="id" update-rule="3" delete-rule="3" deferrability="2"/>
+    </table>
+  </data-source>
+</component>
